@@ -1,0 +1,13 @@
+{
+  "name": "memory-book-frontend",
+  "version": "0.0.1",
+  "description": "The frontend for the memory book project https://github.com/GiveaDay/memory-book",
+  "main": "index.html",
+  "repository": "https://github.com/GiveaDay/memory-book",
+  "author": "Give a day",
+  "license": "GNU GPL v3",
+  "private": false,
+  "dependencies": {
+    "vue": "^3.2.41"
+  }
+}

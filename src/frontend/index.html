@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <script src="node_modules/vue/dist/vue.global.prod.js"></script>
+    <script src="public/js/utils.js"></script>
+    <title>Memory book</title>
+</head>
+<body>
+<h1>Memory book</h1>
+
+<h2>Test login</h2>
+<div id="app"><span v-html="message">Loading vue...</span></div>
+
+<script>
+    const {createApp} = Vue
+
+    let app = createApp({
+        data() {
+            return {
+                message: 'Vue works.',
+            }
+        },
+        async mounted() {
+            window.loginToken = await postToBackend('/login', {email: 'test@test.com', password: 'qsdfqsdfqsdfqs'})
+            this.message += '<br>Login was successful.'
+            let user = await getFromBackend('/fetchUser')
+            this.message += '<br>User is : ' + JSON.stringify(user)
+        },
+    })
+
+    app.mount('#app')
+</script>
+</body>
+</html>
