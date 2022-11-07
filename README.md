@@ -27,7 +27,7 @@ In the `data` folder, copy the `.env.example` file to `.env` and modify the conf
 
 ### Run migrations
 
-Go to the `code/backend/src` folder and run `yarn run-database-migrations`.
+Go to the `src/backend` folder and run `yarn run-database-migrations`.
 
 ### Run the site
 
