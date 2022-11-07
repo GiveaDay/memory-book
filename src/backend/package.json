@@ -5,7 +5,7 @@
   "main": "index.mjs",
   "repository": "https://github.com/GiveaDay/memory-book",
   "author": "Give a day",
-  "license": "GNU GPL v3",
+  "license": "GPL-3.0-only",
   "private": false,
   "dependencies": {
     "bcrypt": "^5.1.0",
