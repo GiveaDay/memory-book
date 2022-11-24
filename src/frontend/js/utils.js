@@ -1,8 +1,15 @@
+class HttpError extends Error {
+    constructor(message, statusCode) {
+        super(message);
+        this.statusCode = statusCode
+    }
+}
+
 function handleResponse(url, response) {
     if (response.status === 200) {
         return response.json()
     } else {
-        throw new Error(`Received response with status code ${response.status} for url ${url}`)
+        throw new HttpError(`Received response with status code ${response.status} for url ${url}`, response.status)
     }
 }
 
@@ -16,7 +23,7 @@ function createHeaders() {
     return headers;
 }
 
-async function postToBackend(url, data, query) {
+export async function postToBackend(url, data, query) {
     let finalUrl = '/api' + url + new URLSearchParams(query);
     let response = await fetch(finalUrl, {
         method: 'POST',
@@ -26,11 +33,30 @@ async function postToBackend(url, data, query) {
     return handleResponse(finalUrl, response)
 }
 
-async function getFromBackend(url, query) {
+export async function getFromBackend(url, query) {
     let finalUrl = '/api' + url + new URLSearchParams(query);
     let response = await fetch(finalUrl, {
         method: 'GET',
         headers: createHeaders(),
     })
     return handleResponse(finalUrl, response)
+}
+
+export class AsyncFunctionResult {
+    constructor() {
+        this.active = false
+        this.error = null
+    }
+}
+
+export async function executeAsyncFunction(asyncFunctionResult, theFunction) {
+    asyncFunctionResult.error = null
+    asyncFunctionResult.active = true
+    try {
+        await theFunction()
+    } catch (error) {
+        asyncFunctionResult.error = error
+    } finally {
+        asyncFunctionResult.active = false
+    }
 }

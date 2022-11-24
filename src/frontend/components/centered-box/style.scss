@@ -1,0 +1,10 @@
+.centered-box {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+
+  .inner-wrapper {
+    margin-top: 30vh;
+  }
+}

@@ -6,6 +6,9 @@ import {getProjectPath} from "./utils/projectPath.mjs";
 import {readEnvironmentConfig} from "./utils/jwt.mjs";
 import router from './api/index.mjs'
 import bodyParser from 'body-parser'
+import {compileSassFiles} from "./utils/sass.mjs";
+
+const start = new Date().getTime()
 
 const app = express()
 const port = 3030
@@ -17,8 +20,9 @@ if (!fs.existsSync(frontendDirectory)) {
     throw new Error(`Could not find frontend directory. Path ${frontendDirectory} does not exist`)
 }
 
-app.use('/node_modules', express.static(path.join(frontendDirectory, 'node_modules')))
-app.use('/public', express.static(path.join(frontendDirectory, 'public')))
+app.use('/', express.static(frontendDirectory))
+
+await compileSassFiles()
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(frontendDirectory, 'index.html'))
@@ -38,5 +42,5 @@ app.use(bodyParser.urlencoded({extended: false, limit: '50mb'}))
 app.use('/api', router)
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`Example app listening on port ${port}. Starting the app took ${new Date().getTime() - start}ms`)
 })

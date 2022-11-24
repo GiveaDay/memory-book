@@ -8,6 +8,7 @@
   "license": "GPL-3.0-only",
   "private": false,
   "dependencies": {
-    "vue": "^3.2.41"
+    "vue": "^3.2.41",
+    "vue-router": "^4.1.6"
   }
 }

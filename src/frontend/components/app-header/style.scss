@@ -1,0 +1,20 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+
+
+  .site-name {
+    font-size: 200%;
+    flex-grow: 1;
+  }
+
+  .actions {
+    flex-shrink: 0;
+
+    button {
+      margin-left: 10px;
+    }
+  }
+}

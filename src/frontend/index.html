@@ -1,31 +1,39 @@
+<!doctype html>
 <html lang="en">
 <head>
+    <link href="generated/style.css" rel="stylesheet">
     <script src="node_modules/vue/dist/vue.global.prod.js"></script>
-    <script src="public/js/utils.js"></script>
+    <script src="node_modules/vue-router/dist/vue-router.global.prod.js"></script>
     <title>Memory book</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
-<h1>Memory book</h1>
+<body class="home-page">
+<div id="app">
+    <app-header></app-header>
+    <router-view></router-view>
+</div>
 
-<h2>Test login</h2>
-<div id="app"><span v-html="message">Loading vue...</span></div>
+<script type="module">
+    import Home from "./pages/Home.js";
+    import Register from "./pages/Register.js";
+    import Login from "./pages/Login.js";
+    import AppHeader from "./components/app-header/index.js";
 
-<script>
-    const {createApp} = Vue
+    const routes = [
+        {path: '/', component: Home},
+        {path: '/login', component: Login},
+        {path: '/register', component: Register},
+    ]
 
-    let app = createApp({
-        data() {
-            return {
-                message: 'Vue works.',
-            }
-        },
-        async mounted() {
-            window.loginToken = await postToBackend('/login', {email: 'test@test.com', password: 'qsdfqsdfqsdfqs'})
-            this.message += '<br>Login was successful.'
-            let user = await getFromBackend('/fetchUser')
-            this.message += '<br>User is : ' + JSON.stringify(user)
-        },
+    const router = VueRouter.createRouter({
+        history: VueRouter.createWebHashHistory(),
+        routes,
     })
+
+    const app = Vue.createApp({
+        components: {AppHeader},
+    })
+    app.use(router)
 
     app.mount('#app')
 </script>
