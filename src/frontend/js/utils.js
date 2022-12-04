@@ -60,3 +60,14 @@ export async function executeAsyncFunction(asyncFunctionResult, theFunction) {
         asyncFunctionResult.active = false
     }
 }
+
+export function saveLoginTokenToCookie(token) {
+    document.cookie = "login_token=" + token
+}
+
+export function restoreLoginTokenFromCookie() {
+    window.loginToken = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('login_token='))
+        ?.split('=')[1];
+}

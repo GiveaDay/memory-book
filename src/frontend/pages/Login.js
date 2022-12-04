@@ -1,7 +1,7 @@
 import CenteredBox from "../components/centered-box/index.js";
 import Spinner from "../components/spinner/index.js";
 import AsyncButton from "../components/async-button/index.js";
-import {postToBackend} from "../js/utils.js";
+import {postToBackend, saveLoginTokenToCookie} from "../js/utils.js";
 
 export default {
     // language=vue
@@ -33,6 +33,7 @@ export default {
             try {
                 this.incorrectEmailOrPassword = false
                 window.loginToken = await postToBackend('/login', {email: this.email, password: this.password})
+                saveLoginTokenToCookie(window.loginToken)
                 this.$router.push('/')
             } catch (error) {
                 if (error.statusCode === 401) {

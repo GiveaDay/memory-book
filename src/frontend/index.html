@@ -18,6 +18,7 @@
     import Register from "./pages/Register.js";
     import Login from "./pages/Login.js";
     import AppHeader from "./components/app-header/index.js";
+    import {restoreLoginTokenFromCookie} from "./js/utils.js";
 
     const routes = [
         {path: '/', component: Home},
@@ -29,6 +30,8 @@
         history: VueRouter.createWebHashHistory(),
         routes,
     })
+
+    restoreLoginTokenFromCookie()
 
     const app = Vue.createApp({
         components: {AppHeader},
